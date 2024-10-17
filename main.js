@@ -8,12 +8,14 @@ class Heroi {
     }
 // gets
     exibirInfo(){
+        this.nivel = this.verificaNivel()
+        
         console.log("---------------------")
         console.log("| Nome: " + this.nome)
         console.log("| XP: " + this.xp)
         console.log("| Nivel: " + this.nivel)
         console.log("| Vida: " + this.vida)
-        console.log("| Ataque: " + this.xp)
+        console.log("| Ataque: " + this.ataque)
         console.log("---------------------")
     }
     getNome(){
@@ -34,33 +36,30 @@ class Heroi {
     // sets
     setXp(xp){
         this.xp = xp
-        this.nivel = this.verificaNivel(xp)
     }
     
-    setAtaque(ataque){
-        this.ataque = ataque 
-    }
     
-    setVida(){
+    setVida(vida){
         this.vida = vida
     }
 
-    verificaNivel(xp){ 
-        if (xp <= 1.000){
+    verificaNivel(){ 
+
+        if (this.xp <= 1.000){
             return "Ferro"
-        } else if (xp >= 1.001 && xp <= 2.000) {
+        } else if (this.xp > 1000 && this.xp <= 2000) {
             return "Bronze"
-        } else if (xp >= 2.001 && xp <= 5.000) {
+        } else if (this.xp > 2000 && this.xp <= 5000) {
             return "Prata"
-        } else if (xp >= 5.001 && xp <= 7.000) {
+        } else if (this.xp > 5000 && this.xp <= 7000) {
             return "Ouro"
-        } else if (xp >= 7.001 && xp <= 8.000) {
+        } else if (this.xp > 7000 && this.xp <= 8000) {
             return "Platina"
-        } else if (xp >= 8.001 && xp <= 9.000) {
+        } else if (this.xp > 8000 && this.xp <= 9000) {
             return "Ascendente"
-        } else if (xp >= 9.001 && xp <= 10.000) {
+        } else if (this.xp > 9000 && this.xp <= 10000) {
             return "Imortal"
-        } else if (xp >= 10.001) {
+        } else if (this.xp > 10000) {
             return "Radiante"
         }
     }
@@ -71,11 +70,9 @@ class Battle{
         this.heroi1 = h1
         this.heroi2 = h2
         this.rodadas = rodadas*1000
-        // Ganho
+        // Ganho XP
         this.xp_ataque = 100
         this.xp_esquiva = 50
-        // Perda
-        this.xp_perde_vida = 50
     }
     
     verificaEsquivou(){ // H1 ataca o H2
@@ -96,26 +93,38 @@ class Battle{
                 esquivou = this.verificaEsquivou(this.heroi1, this.heroi2)
                 
                 if(esquivou === true){ // h2 esquivou
-                    this.heroi2.setXp += this.xp_esquiva
+                    this.heroi2.setXp(this.heroi2.getXp() + this.xp_esquiva)
                     // console.log(heroi2.getNome + " esquivou!")
                 }else{
-                    this.heroi2.setVida -= this.heroi1.getAtaque 
-                    this.heroi1.setXp += this.xp_ataque
+                    this.heroi2.setVida(this.heroi2.getVida() - this.heroi1.getAtaque())  
+                    this.heroi1.setXp(this.heroi1.getXp() + this.xp_ataque)
                     // console.log(heroi1.getNome + " atacou!")
                 }
             }else{
                 esquivou = this.verificaEsquivou(this.heroi2,this.heroi1)
                 if(esquivou === true){ // h2 esquivou
-                    this.heroi1.setXp += this.xp_esquiva
+                    this.heroi1.setXp(this.heroi1.getXp() + this.xp_esquiva)
                     // console.log(heroi2.getNome + " esquivou!")
                 }else{
-                    this.heroi1.setVida -= this.heroi2.getAtaque 
-                    this.heroi2.setXp += this.xp_ataque
+                    this.heroi1.setVida(this.heroi1.getVida() - this.heroi2.getAtaque()) 
+                    this.heroi2.setXp(this.heroi2.getXp() + this.xp_ataque)
                     // console.log(heroi1.getNome + " atacou!")
                 }
             }
+            if(this.verificaMorte()){
+                break
+            }
         }
         this.exibirFimBatalha()
+    }
+
+    verificaMorte(){
+        if(this.heroi1.getVida() < 0 || this.heroi2.getVida() < 0){
+            console.log("Fim da batalha")
+            return true
+        }else{
+            return false
+        }
     }
 
     verificarGanhador(){
@@ -133,8 +142,8 @@ class Battle{
         this.heroi2.exibirInfo()
         console.log("\n")
         
-        let ganhador = this.ganhador() 
-        console.log( ganhador == 1 ? this.heroi1.getNome : this.heroi2.getNome + "eh o ganhador")
+        let ganhador = this.verificarGanhador() 
+        console.log( ganhador == 1 ? this.heroi1.getNome() : this.heroi2.getNome() + " eh o ganhador!!!")
     }
 }
 
@@ -143,5 +152,5 @@ class Battle{
 ruan = new Heroi("Ruan")
 pablo = new Heroi("Pablo")
 
-batalha = new Battle(5)
-batalha.battle(ruan, pablo)
+batalha = new Battle(5, ruan, pablo)
+batalha.battle()
