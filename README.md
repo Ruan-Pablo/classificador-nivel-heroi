@@ -2,11 +2,11 @@
 Este repositório faz parte de um desafio do bootcamp da DIO, onde a tarefa é classificar o nível de um herói com base na sua quantidade de XP.
 
 ## Desafio original
-Fazer um programa que lei uma quantidade de xp de um Heroi e utilize uma estrutura de decisão para apresentar o rank que o heroi está.
+Fazer um programa que leia uma quantidade de xp de um Heroi e utilizar uma estrutura de decisão para apresentar o rank que o Heroi está.
 
 ## Ops
 
-Acontece que eu me empolguei com o desafio e pensei um pouquinho além, e pensei em uma batalha de herois com ataque e esquiva sendo aleatorios.
+Acontece que eu me empolguei com o desafio e pensei um pouquinho além. Pensei em uma batalha de herois com ataques e esquivas sendo aleatorios.
 
 ## Batalha
 A batalha funciona com base na aleatoriedade, onde:
