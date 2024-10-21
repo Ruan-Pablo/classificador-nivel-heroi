@@ -16,3 +16,7 @@ A batalha funciona com base na aleatoriedade, onde:
 - O herói pode se esquivar com uma chance de 70% de sucesso, o que possibilita ganhar mais XP.
 - A vida do herói é decrementada de acordo com o ataque do oponente.
 
+## Uteis
+
+Para testa o código usei a ferramenta do [Node.js](https://www.mycompiler.io/pt/new/nodejs)
+- Basta copiar, colar e executar o código
